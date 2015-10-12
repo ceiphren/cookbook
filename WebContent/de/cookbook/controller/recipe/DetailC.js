@@ -7,10 +7,9 @@ Ext.define('de.cookbook.controller.recipe.DetailC', {
 
 		var ingredientsGrid = this.getView().down('#ingredients');
 
-		var recipeId = record.get('id');
-		console.log('load ingredients');
+		var recipeId = record.get('@rid');
 
-		if (recipeId !== null) {
+		if (recipeId) {
 			ingredientsGrid.getStore().load({
 				params : {
 					recipeId : recipeId
@@ -51,9 +50,9 @@ Ext.define('de.cookbook.controller.recipe.DetailC', {
 			var ingredients = this.getView().down('#ingredients');
 
 			var ingredient = Ext.create('de.cookbook.model.Ingredient');
-			ingredient.data.amount = amount;
-			ingredient.data.unit = unit;
-			ingredient.data.type = type;
+			ingredient.set('amount', amount);
+			ingredient.set('unit', unit);
+			ingredient.set('type', type);
 
 			ingredients.getStore().add(ingredient);
 
@@ -79,7 +78,7 @@ Ext.define('de.cookbook.controller.recipe.DetailC', {
 		// which we need for the ingredients
 
 		this.getView().loadRecord(record);
-		var recipeId = record.get('id');
+		var recipeId = record.get('@rid');
 
 		Ext.each(this.getView().down('#ingredients').getStore().data.items,
 				function(value) {

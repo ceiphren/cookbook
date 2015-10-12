@@ -37,9 +37,9 @@ public class IngredientController {
 
 		JsonObject json = object.get("parameter").getAsJsonObject();
 
-		String recipeName = json.get("recipeName").getAsString();
+		String recipeId = json.get("recipeId").getAsString();
 
-		List<Ingredient> list = ingredientDao.getByRecipeName(recipeName);
+		List<Ingredient> list = ingredientDao.getByRecipeName(recipeId);
 
 		return JsonUtil.toJson(list);
 	}

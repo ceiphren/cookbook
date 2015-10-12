@@ -1,10 +1,13 @@
 Ext.define('de.cookbook.model.Recipe', {
 	extend : 'Ext.data.Model',
 
-	idProperty : 'clientId',
+	idProperty : 'extId',
 
 	fields : [ {
-		name : 'clientId'
+		name : 'extId'
+	},{
+		name : '@rid',
+		type : 'string'
 	}, {
 		name : 'name',
 		type : 'string',

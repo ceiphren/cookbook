@@ -1,9 +1,11 @@
 package de.ceiphren.cookbook.dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 import de.ceiphren.cookbook.controller.JsonUtil;
 import de.ceiphren.cookbook.model.Recipe;
@@ -20,8 +22,13 @@ public class RecipeDao {
 
 		String query = "select from recipe";
 		JsonArray e = dbService.executeQuery(query);
-		// TODO:...
-		return null;
+		List<Recipe> result = new ArrayList<Recipe>();
+		
+		for(JsonElement element: e){
+			Recipe r = JsonUtil.fromJson(element, Recipe.class);
+			result.add(r);
+		}
+		return result;
 	}
 
 	public Recipe get(String name) {

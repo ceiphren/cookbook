@@ -20,8 +20,8 @@ Ext.define('de.cookbook.view.recipe.GridV', {
 		text : 'Name',
 		dataIndex : 'name'
 	}, {
-		text : 'Text',
-		dataIndex : 'text',
+		text : 'Description',
+		dataIndex : 'description',
 		flex : 1
 	} ],
 

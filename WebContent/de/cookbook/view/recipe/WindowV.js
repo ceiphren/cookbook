@@ -12,7 +12,7 @@ Ext.define('de.cookbook.view.recipe.WindowV', {
 	width : 500,
 	layout : 'fit',
 	modal : true,
-
+	autoScroll: true,
 	closeAction : 'destroy',
 
 	items : [{

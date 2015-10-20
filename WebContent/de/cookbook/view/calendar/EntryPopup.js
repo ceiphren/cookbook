@@ -40,7 +40,7 @@ Ext.define('de.cookbook.view.calendar.EntryPopup', {
 
 			store : new Ext.create('Ext.data.Store', {
 				fields : [ 'id', 'name' ],
-				autoLoad : true,
+				//autoLoad : true,
 				proxy : {
 					type : 'ajax',
 					url : 'recipe?object=recipe&action=getComboValues',

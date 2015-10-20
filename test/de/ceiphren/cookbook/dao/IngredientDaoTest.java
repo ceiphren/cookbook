@@ -25,25 +25,57 @@ public class IngredientDaoTest extends AbstractTest {
 
 		Assert.assertNotNull(recipe.getRecordId());
 
-		List<Ingredient> ingredientList = new ArrayList<>();
+		List<Ingredient> list = new ArrayList<>();
 
 		Ingredient ingredient1 = new Ingredient();
 		ingredient1.setAmount(200);
 		ingredient1.setUnit("ml");
 		ingredient1.setType("milk");
 		ingredient1.setRecipeId(recipe.getRecordId());
-		ingredientList.add(ingredient1);
+		list.add(ingredient1);
 
 		Ingredient ingredient2 = new Ingredient();
 		ingredient2.setAmount(300);
 		ingredient2.setUnit("g");
 		ingredient2.setType("sugar");
 		ingredient2.setRecipeId(recipe.getRecordId());
-		ingredientList.add(ingredient2);
+		list.add(ingredient2);
 
-		ingredientDao.saveAll(ingredientList);
+		List<Ingredient> list2 = ingredientDao.saveAll(list);
 
-		Assert.assertEquals(ingredient1.getRecipeId(), recipe.getRecordId());
-		Assert.assertEquals(ingredient2.getRecipeId(), recipe.getRecordId());
+		compareObjects(list, list2, false);
+		
+		List<Ingredient> list3 = ingredientDao.getByRecipeId(recipe.getRecordId());
+		
+		compareObjects(list2, list3, true);
+		
+		int countOfDeleted = ingredientDao.deleteAll(list3);
+		
+		recipeDao.delete(recipe);
+		Assert.assertEquals(2, countOfDeleted );
+	}
+
+	private void compareObjects(List<Ingredient> expectedList, List<Ingredient> newList, boolean compareRecordIds) {
+
+		Assert.assertEquals(expectedList.size(), newList.size());
+
+		for (int i = 0; i < expectedList.size(); i++) {
+
+			Ingredient expected = expectedList.get(i);
+			Ingredient newI = newList.get(i);
+
+
+			Assert.assertNotNull(newI.getRecordId());
+
+			//TODO: we have to add the recordID somehow to the ingredient
+			
+			if(compareRecordIds){
+				Assert.assertEquals(expected.getRecordId(), newI.getRecordId());
+			}
+			Assert.assertEquals(expected.getRecipeId(), newI.getRecipeId());
+			Assert.assertEquals(expected.getAmount(), newI.getAmount());
+			Assert.assertEquals(expected.getType(), newI.getType());
+			Assert.assertEquals(expected.getUnit(), newI.getUnit());
+		}
 	}
 }

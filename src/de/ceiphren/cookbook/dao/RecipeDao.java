@@ -7,7 +7,6 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
-import de.ceiphren.cookbook.controller.JsonUtil;
 import de.ceiphren.cookbook.model.Recipe;
 import de.ceiphren.cookbook.model.RecipeComboEntry;
 import de.ceiphren.cookbook.service.DBService;
@@ -25,7 +24,7 @@ public class RecipeDao {
 		List<Recipe> result = new ArrayList<Recipe>();
 		
 		for(JsonElement element: e){
-			Recipe r = JsonUtil.fromJson(element, Recipe.class);
+			Recipe r = DaoJsonUtil.fromJson(element, Recipe.class);
 			result.add(r);
 		}
 		return result;
@@ -37,7 +36,7 @@ public class RecipeDao {
 		JsonArray resultList = dbService.executeQuery(query);
 
 		if (resultList.size() > 0) {
-			return JsonUtil.fromJson(resultList.get(0), Recipe.class);
+			return DaoJsonUtil.fromJson(resultList.get(0), Recipe.class);
 		} else {
 			return null;
 		}
@@ -50,7 +49,7 @@ public class RecipeDao {
 
 	public Recipe save(Recipe recipe) {
 
-		String json = JsonUtil.toJson(recipe);
+		String json = DaoJsonUtil.toJson(recipe);
 
 		String query = null;
 
@@ -63,7 +62,7 @@ public class RecipeDao {
 		JsonArray resultList = dbService.executeQuery(query);
 
 		if (resultList.size() > 0) {
-			return JsonUtil.fromJson(resultList.get(0), Recipe.class);
+			return DaoJsonUtil.fromJson(resultList.get(0), Recipe.class);
 		} else {
 			return null;
 		}

@@ -9,9 +9,10 @@ Ext.define('de.cookbook.store.IngredientS', {
 		type : 'ajax',
 
 		api : {
-			create : 'recipe?action=saveList&object=ingredient',
-			update : 'recipe?action=saveList&object=ingredient',
+			create : 'recipe?object=ingredient&action=saveList',
+			update : 'recipe?object=ingredient&action=saveList',
 			read : 'recipe?object=ingredient&action=getList',
+			destroy : 'recipe?object=ingredient&action=deleteList',
 		},
 
 		actionMethods : {

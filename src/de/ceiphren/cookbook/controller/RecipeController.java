@@ -32,11 +32,11 @@ public class RecipeController {
 
 		JsonElement json = object.get("data");
 
-		Recipe recipe = JsonUtil.fromJson(json.getAsString(), Recipe.class);
+		Recipe recipe = WebJsonUtil.fromJson(json, Recipe.class);
 
-		recipeDao.save(recipe);
+		recipe = recipeDao.save(recipe);
 
-		return JsonUtil.toJson(recipe);
+		return WebJsonUtil.toJson(recipe);
 	}
 
 	public void delete(JsonObject object) {
@@ -47,13 +47,13 @@ public class RecipeController {
 
 		Collection<Recipe> list = recipeDao.get();
 
-		return JsonUtil.toJson(list);
+		return WebJsonUtil.toJson(list);
 	}
 
 	public String getComboValues(JsonObject object) {
 
 		List<RecipeComboEntry> list = recipeDao.getMap();
 
-		return JsonUtil.toJson(list);
+		return WebJsonUtil.toJson(list);
 	}
 }

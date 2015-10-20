@@ -12,7 +12,7 @@ Ext.define('de.cookbook.view.recipe.DetailV', {
 	layout : 'vbox',
 
 	bodyPadding : 5,
-
+	
 	defaults : {
 		width : '100%',
 		labelSeparator : null

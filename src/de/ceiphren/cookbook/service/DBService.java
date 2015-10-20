@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
@@ -16,7 +18,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import de.ceiphren.cookbook.controller.JsonUtil;
+import de.ceiphren.cookbook.dao.DaoJsonUtil;
 
 /**
  * handles connection and sessions to the database.
@@ -25,6 +27,8 @@ import de.ceiphren.cookbook.controller.JsonUtil;
  *
  */
 public class DBService {
+
+	private static final Log LOG = LogFactory.getLog(DBService.class);
 
 	private final static String URL_SQL = "http://localhost:2480/command/cookbook/sql";
 	private final static String URL_BATCH = "http://localhost:2480/batch/cookbook/";
@@ -35,6 +39,10 @@ public class DBService {
 
 	/**
 	 * execute a single sql query
+	 * 
+	 * @return a json-array containing the results, at least an empty
+	 *         JsonArray. This usually happens when the script threw an error
+	 *         which was logged by the Logger
 	 */
 	public JsonArray executeQuery(String query) {
 
@@ -57,24 +65,34 @@ public class DBService {
 			InputStream s1 = response.getEntity().getContent();
 			InputStreamReader isr = new InputStreamReader(s1);
 
-			JsonElement element = JsonUtil.toJsonElement(isr);
+			JsonElement element = DaoJsonUtil.toJsonElement(isr);
 
-			JsonArray result = element.getAsJsonObject().get("result").getAsJsonArray();
-			return result;
+			JsonObject resultObject = element.getAsJsonObject();
+
+			if (resultObject.get("errors") != null) {
+				LOG.warn("query failed: " + query);
+				LOG.warn("db-script threw an error: " + resultObject.get("errors"));
+				return new JsonArray();
+			} else {
+				JsonArray result = element.getAsJsonObject().get("result").getAsJsonArray();
+				return result;
+			}
+
 		} catch (Exception e1) {
 
 			e1.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	/**
-	 * execute a batch of queries 
+	 * execute a batch of queries
+	 * 
 	 * @param batch
 	 * @return
 	 */
-	public JsonArray executeBatch(String batch){
-		
+	public JsonArray executeBatch(String batch) {
+
 		HttpPost post = new HttpPost(URL_BATCH);
 		BasicHttpEntity entity = new BasicHttpEntity();
 
@@ -84,13 +102,13 @@ public class DBService {
 		operation.addProperty("script", batch);
 		JsonArray ops = new JsonArray();
 		ops.add(operation);
-		
+
 		JsonObject o = new JsonObject();
 		o.addProperty("transaction", false);
 		o.add("operations", ops);
-		
+
 		String payload = o.toString();
-		
+
 		ByteArrayInputStream s = new ByteArrayInputStream(payload.getBytes());
 		post.addHeader("Accept-Encoding", "gzip,deflate");
 		post.addHeader(BasicScheme.authenticate(new UsernamePasswordCredentials(USER, PASSWORD), "UTF-8", false));
@@ -107,7 +125,7 @@ public class DBService {
 			InputStream s1 = response.getEntity().getContent();
 			InputStreamReader isr = new InputStreamReader(s1);
 
-			JsonElement element = JsonUtil.toJsonElement(isr);
+			JsonElement element = DaoJsonUtil.toJsonElement(isr);
 
 			JsonArray result = element.getAsJsonObject().get("result").getAsJsonArray();
 			return result;

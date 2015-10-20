@@ -1,4 +1,4 @@
-package de.ceiphren.cookbook.controller;
+package de.ceiphren.cookbook.dao;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
@@ -14,9 +14,15 @@ import com.google.gson.JsonParser;
  * Allows static access to gson functionality
  * 
  */
-public class JsonUtil {
+public class DaoJsonUtil {
 
-	private static GsonBuilder builder = new GsonBuilder();
+	/**
+	 * rules for the json-serialization to and from the db:
+	 * - don't write the recordId to the db
+	 */
+	private static GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();
+	
+	
 	private static Gson gson = builder.create();
 
 	private static JsonParser parser = new JsonParser();
@@ -37,13 +43,6 @@ public class JsonUtil {
 		return parser.parse(json);
 	}
 
-	/**
-	 * 
-	 * @param content
-	 * @param type
-	 *            should be a typed collection like Collection<Recipe>
-	 * @return
-	 */
 	public static <T> List<T> fromJsonList(String content, Type type) {
 
 		if (content.startsWith("{")) {
@@ -54,13 +53,6 @@ public class JsonUtil {
 		return gson.fromJson(content, type);
 	}
 
-	/**
-	 * 
-	 * @param content
-	 * @param type
-	 *            should be a typed collection like Collection<Recipe>
-	 * @return
-	 */
 	public static <T> List<T> fromJsonList(JsonArray content, Type type) {
 
 		return gson.fromJson(content, type);

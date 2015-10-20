@@ -50,6 +50,7 @@ Ext.define('de.cookbook.controller.recipe.DetailC', {
 			var ingredients = this.getView().down('#ingredients');
 
 			var ingredient = Ext.create('de.cookbook.model.Ingredient');
+
 			ingredient.set('amount', amount);
 			ingredient.set('unit', unit);
 			ingredient.set('type', type);
@@ -76,20 +77,23 @@ Ext.define('de.cookbook.controller.recipe.DetailC', {
 
 		// now after the record is saved it can be guaranteed that it has an ID
 		// which we need for the ingredients
-
 		this.getView().loadRecord(record);
 		var recipeId = record.get('@rid');
 
-		Ext.each(this.getView().down('#ingredients').getStore().data.items,
-				function(value) {
-					value.set('recipeId', recipeId);
-				})
+		var iStore = this.getView().down('#ingredients').getStore();
 
-		this.getView().down('#ingredients').getStore().save({
-			callback : this.afterSaveIngredients,
-			scope : this
-		});
+		Ext.each(iStore.data.items, function(value) { value.set('recipeId', recipeId);});
 
+        //toDestroy = iStore.getRemovedRecords().length
+		
+		if( iStore.getNewRecords().length > 0 || iStore.getUpdatedRecords().length || iStore.getRemovedRecords().length > 0){
+			iStore.sync({
+				callback : this.afterSaveIngredients,
+				scope : this
+			});	
+		}else{
+			this.afterSaveIngredients();
+		}
 	},
 
 	afterSaveIngredients : function() {

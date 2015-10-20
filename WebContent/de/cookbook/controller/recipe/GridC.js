@@ -2,8 +2,8 @@ Ext.define('de.cookbook.controller.recipe.GridC', {
 	extend : 'Ext.app.ViewController',
 
 	alias : 'controller.recipe_gridc',
-	
-	requires : ['de.cookbook.view.recipe.WindowV'],
+
+	requires : [ 'de.cookbook.view.recipe.WindowV' ],
 
 	createRecipe : function() {
 
@@ -12,9 +12,9 @@ Ext.define('de.cookbook.controller.recipe.GridC', {
 		this.createAndShowPopup(record);
 	},
 
-	selectRecipe : function() {
+	openPopup : function(grid, record, item, index, e, eOpts) {
 
-		var record = this.getView().getSelectionModel().getSelection()[0]
+		var record = this.getView().getStore().getAt(index);
 
 		this.createAndShowPopup(record);
 	},
@@ -28,7 +28,7 @@ Ext.define('de.cookbook.controller.recipe.GridC', {
 	},
 
 	reloadStore : function() {
-		
+
 		this.getView().getStore().load();
 	}
 

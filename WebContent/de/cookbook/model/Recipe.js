@@ -7,7 +7,8 @@ Ext.define('de.cookbook.model.Recipe', {
 		name : 'extId'
 	},{
 		name : '@rid',
-		type : 'string'
+		type : 'string',
+		allowNull : true
 	}, {
 		name : 'name',
 		type : 'string',

@@ -21,7 +21,7 @@ public class DataService {
 	}
 
 	public void setupConstraints() {
-		String query = "create constraint on (recipe:Recipe) assert recipe.name is unique";
-		dbService.executeQuery(query);
+
+		// TODO: implement me
 	}
 }

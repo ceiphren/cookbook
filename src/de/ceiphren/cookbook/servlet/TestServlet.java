@@ -14,8 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonParser;
 
 import de.ceiphren.cookbook.AppContext;
 import de.ceiphren_Inc.context.exception.ContextLoaderException;
@@ -30,12 +31,6 @@ public class TestServlet extends HttpServlet {
 	public void init() throws ServletException {
 
 		super.init();
-		// register the jdbc driver
-		try {
-			Class.forName("org.neo4j.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
 
 		AppContext context = new AppContext();
 		try {
@@ -113,11 +108,11 @@ public class TestServlet extends HttpServlet {
 			parameterObject.addProperty(entry.getKey(), entry.getValue()[0]);
 		}
 
-		JsonPrimitive contentObject = new JsonPrimitive(body);
+		JsonElement el = new JsonParser().parse(body);
 
 		JsonObject obj = new JsonObject();
 		obj.add("parameter", parameterObject);
-		obj.add("data", contentObject);
+		obj.add("data", el);
 
 		Object controller = this.controllerMap.get(object);
 

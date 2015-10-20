@@ -1,13 +1,12 @@
 Ext.define('de.cookbook.model.Ingredient', {
 	extend : 'Ext.data.Model',
 
-	idProperty : 'extId',
+	idProperty : '@rid',
 
 	fields : [ {
-		name : 'extId'
-	},{
 		name : '@rid',
-		type : 'string'
+		type : 'string',
+		allowNull : true
 	}, {
 		name : 'recipeId',
 		type : 'string',

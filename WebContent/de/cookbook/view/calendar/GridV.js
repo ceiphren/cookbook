@@ -6,7 +6,7 @@ Ext.define('de.cookbook.view.calendar.GridV', {
 	xtype : 'de_cookbook_view_calendar_gridv',
 
 	extend : 'Ext.panel.Panel',
-
+	
 	controller : 'calendar_gridc',
 
 	layout : {

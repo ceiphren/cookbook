@@ -1,3 +1,8 @@
+
+Ext.Loader.setConfig({
+    disableCaching: false
+});
+Ext.Ajax.disableCaching = false;
 Ext.application({
 	name : 'MyApp',
 

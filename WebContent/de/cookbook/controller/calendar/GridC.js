@@ -5,8 +5,10 @@ Ext.define('de.cookbook.controller.calendar.GridC', {
 
 	alias : 'controller.calendar_gridc',
 
-	onShow : function() {
+	init : function() {
 
+		var d = this.getDateField();
+		
 		this.getView().renderItems();
 	},
 
@@ -26,6 +28,29 @@ Ext.define('de.cookbook.controller.calendar.GridC', {
 		window.show();
 
 		window.setPagePosition(x, y);
-	}
+	},
+	
+	selectPreviousMonth : function(){
+		
+		var date = this.getDateField().getValue();
+		date.setMonth(date.getMonth() - 1);
+		
+		this.getDateField().setValue(date);
+		
+		this.getView().renderItems();
+	},
+	
+	selectNextMonth : function(){
+		var date = this.getDateField().getValue();
+		date.setMonth(date.getMonth() + 1);
+		
+		this.getDateField().setValue(date);
+		
+		this.getView().renderItems();
+	},
 
+	
+	getDateField : function(){
+		return this.getView().down('#date');
+	}
 });

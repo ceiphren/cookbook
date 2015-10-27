@@ -72,7 +72,6 @@ public class RecipeDao {
 
 		String query = "delete vertex recipe where @rid = '" + recipe.getRecordId() + "';";
 		dbService.executeQuery(query);
-
 	}
 
 }

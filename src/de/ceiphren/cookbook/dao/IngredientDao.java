@@ -38,7 +38,7 @@ public class IngredientDao {
 				LOG.error("FATAL BUMBSERROR: ZE INGREDIENT CANNOT HAVE NO RECIPEID");
 			}
 
-			if (i.getRecordId().startsWith("#")) {
+			if (i.getRecordId() != null && i.getRecordId().startsWith("#")) {
 				query += "update ingredient content " + DaoJsonUtil.toJson(i) + " where @rid =" + i.getRecordId()
 						+ "\n ";
 				query += "let i" + counter + " = select from " + i.getRecordId() + "\n ";

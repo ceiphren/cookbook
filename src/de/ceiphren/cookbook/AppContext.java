@@ -4,6 +4,7 @@ import de.ceiphren.cookbook.controller.DayEntryController;
 import de.ceiphren.cookbook.controller.IngredientController;
 import de.ceiphren.cookbook.controller.RecipeController;
 import de.ceiphren.cookbook.controller.TestDataController;
+import de.ceiphren.cookbook.dao.DayEntryDao;
 import de.ceiphren.cookbook.dao.IngredientDao;
 import de.ceiphren.cookbook.dao.RecipeDao;
 import de.ceiphren.cookbook.service.DBService;
@@ -23,6 +24,7 @@ public class AppContext extends de.ceiphren_Inc.context.AppContext {
 
 		componentList.add(RecipeDao.class);
 		componentList.add(IngredientDao.class);
+		componentList.add(DayEntryDao.class);
 
 		componentList.add(DataService.class);
 

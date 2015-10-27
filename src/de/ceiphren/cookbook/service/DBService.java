@@ -13,6 +13,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -35,14 +36,14 @@ public class DBService {
 	private final static String USER = "root";
 	private final static String PASSWORD = "63FA854597E41ABDA8FE9E1E5E920F83A3BC60DC789BE975DE749CE0263C41A9";
 
-	private static HttpClient client = new DefaultHttpClient();
+	private static HttpClient client = HttpClientBuilder.create().build();
 
 	/**
 	 * execute a single sql query
 	 * 
-	 * @return a json-array containing the results, at least an empty
-	 *         JsonArray. This usually happens when the script threw an error
-	 *         which was logged by the Logger
+	 * @return a json-array containing the results, at least an empty JsonArray.
+	 *         This usually happens when the script threw an error which was
+	 *         logged by the Logger
 	 */
 	public JsonArray executeQuery(String query) {
 
@@ -70,8 +71,8 @@ public class DBService {
 			JsonObject resultObject = element.getAsJsonObject();
 
 			if (resultObject.get("errors") != null) {
-				LOG.warn("query failed: " + query);
-				LOG.warn("db-script threw an error: " + resultObject.get("errors"));
+
+				LOG.warn("query failed: " + query + "\ndb-script threw an error: " + resultObject.get("errors"));
 				return new JsonArray();
 			} else {
 				JsonArray result = element.getAsJsonObject().get("result").getAsJsonArray();

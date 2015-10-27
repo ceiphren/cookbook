@@ -4,18 +4,20 @@ Ext.define('de.cookbook.model.DayEntry', {
 	idProperty : 'clientId',
 
 	fields : [ {
-		name : 'clientId'
+		name : 'clientId',
+		type : 'string',
+		allowNull : true
 	}, {
 		name : 'date',
 		type : 'date',
 		allowNull : true
 	}, {
-		name : 'pureText',
+		name : 'text',
 		type : 'string',
 		allowNull : true
 	}, {
 		name : 'recipeId',
-		type : 'int',
+		type : 'string',
 		allowNull : true
 	} ],
 

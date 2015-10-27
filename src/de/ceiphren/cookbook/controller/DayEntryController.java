@@ -7,11 +7,12 @@ import de.ceiphren.cookbook.dao.DayEntryDao;
 import de.ceiphren.cookbook.dao.DaoJsonUtil;
 import de.ceiphren.cookbook.model.DayEntry;
 import de.ceiphren.cookbook.servlet.JsonController;
+import de.ceiphren_Inc.context.Needed;
 
 @JsonController("dayEntry")
 public class DayEntryController {
 
-
+	@Needed
 	public DayEntryDao dao;
 
 	public String save(JsonObject object) {

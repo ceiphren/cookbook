@@ -14,6 +14,8 @@ Ext.define('de.cookbook.view.calendar.EntryPopup', {
 
 	controller : 'calendar_popupc',
 	
+	modal : true,
+	
 	listeners : {
 		activate : 'initController'
 	},
@@ -23,23 +25,28 @@ Ext.define('de.cookbook.view.calendar.EntryPopup', {
 		width : '100%'
 	},
 
-	items : [ {
+	items : [{
+		xtype : 'datefield',
+		itemId : 'date',
+		fieldLabel : 'date'
+	}, {
 		xtype : 'textfield',
+		itemId : 'text',
 		fieldLabel : 'just text'
 	}, {
 		xtype : 'container',
 		layout : 'hbox',
-		items : [ {
+		items : [{
 			xtype : 'combobox',
 			itemId : 'recipeCombo',
 			enableKeyEvents : true,
 			fieldLabel : 'recipe',
 			displayField : 'name',
-			valueField : 'id',
+			valueField : 'recordId',
 			queryMode : 'local',
 
 			store : new Ext.create('Ext.data.Store', {
-				fields : [ 'id', 'name' ],
+				fields : [ 'recordId', 'name' ],
 				//autoLoad : true,
 				proxy : {
 					type : 'ajax',

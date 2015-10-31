@@ -1,14 +1,12 @@
 package de.ceiphren.cookbook.dao;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import de.ceiphren.cookbook.model.Recipe;
-import de.ceiphren.cookbook.model.RecipeComboEntry;
 import de.ceiphren.cookbook.service.DBService;
 import de.ceiphren_Inc.context.Needed;
 
@@ -17,11 +15,11 @@ public class RecipeDao {
 	@Needed
 	public DBService dbService;
 
-	public Collection<Recipe> get() {
+	public List<Recipe> get() {
 
 		String query = "select from recipe";
 		JsonArray e = dbService.executeQuery(query);
-		List<Recipe> result = new ArrayList<Recipe>();
+		List<Recipe> result = new ArrayList<>();
 		
 		for(JsonElement element: e){
 			Recipe r = DaoJsonUtil.fromJson(element, Recipe.class);
@@ -42,18 +40,13 @@ public class RecipeDao {
 		}
 	}
 
-	public List<RecipeComboEntry> getMap() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Recipe save(Recipe recipe) {
 
 		String json = DaoJsonUtil.toJson(recipe);
 
 		String query = null;
 
-		if (recipe.getRecordId() != null) {
+		if (recipe.getRecordId() != null && recipe.getRecordId().startsWith("#")) {
 			query = "update recipe content " + json + " return after @rid where @rid = '" + recipe.getRecordId() + "';";
 		} else {
 			query = "insert into recipe content " + json + ";";

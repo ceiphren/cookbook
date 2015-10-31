@@ -39,7 +39,7 @@ public class IngredientDao {
 			}
 
 			if (i.getRecordId() != null && i.getRecordId().startsWith("#")) {
-				query += "update ingredient content " + DaoJsonUtil.toJson(i) + " where @rid =" + i.getRecordId()
+				query += "update edge content " + DaoJsonUtil.toJson(i) + " where @rid =" + i.getRecordId()
 						+ "\n ";
 				query += "let i" + counter + " = select from " + i.getRecordId() + "\n ";
 			} else {
@@ -108,7 +108,7 @@ public class IngredientDao {
 
 	public List<Ingredient> getByRecipeId(String recipeId) {
 
-		String query = "select from ( traverse out('has') FROM " + recipeId + " ) WHERE @class='ingredient'";
+		String query = "select from ( traverse out('has') from " + recipeId + " ) where @class='ingredient'";
 
 		JsonArray resultList = dbService.executeQuery(query);
 

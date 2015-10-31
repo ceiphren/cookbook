@@ -1,5 +1,6 @@
 package de.ceiphren.cookbook.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,12 +14,6 @@ import de.ceiphren.cookbook.service.DBService;
 import de.ceiphren.cookbook.servlet.JsonController;
 import de.ceiphren_Inc.context.Needed;
 
-/**
- * 
- * 
- * @author sascha
- *
- */
 @JsonController("recipe")
 public class RecipeController {
 
@@ -52,8 +47,18 @@ public class RecipeController {
 
 	public String getComboValues(JsonObject object) {
 
-		List<RecipeComboEntry> list = recipeDao.getMap();
+		List<Recipe> list = recipeDao.get();
 
-		return WebJsonUtil.toJson(list);
+		List<RecipeComboEntry> comboList = new ArrayList<>();
+
+		for (Recipe r : list) {
+
+			RecipeComboEntry entry = new RecipeComboEntry();
+			entry.setRecordId(r.getRecordId());
+			entry.setName(r.getName());
+			comboList.add(entry);
+		}
+
+		return WebJsonUtil.toJson(comboList);
 	}
 }

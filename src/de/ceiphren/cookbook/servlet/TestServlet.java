@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -127,6 +128,7 @@ public class TestServlet extends HttpServlet {
 			log("method call for action " + action + " and object " + object + " failed.");
 		}
 
+		response.setCharacterEncoding(Charset.defaultCharset().name());
 		response.getWriter().append(result);
 	}
 

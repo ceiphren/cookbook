@@ -3,6 +3,7 @@ package de.ceiphren.cookbook.service;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,8 +12,8 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.JsonArray;
@@ -48,23 +49,20 @@ public class DBService {
 	public JsonArray executeQuery(String query) {
 
 		HttpPost post = new HttpPost(URL_SQL);
-		BasicHttpEntity entity = new BasicHttpEntity();
-
-		ByteArrayInputStream s = new ByteArrayInputStream(query.getBytes());
-		post.addHeader("Accept-Encoding", "gzip,deflate");
-		post.addHeader(BasicScheme.authenticate(new UsernamePasswordCredentials(USER, PASSWORD), "UTF-8", false));
-
-		entity.setContent(s);
-		entity.setContentLength(query.length());
-		entity.setContentType("application/json");
-		entity.setContentEncoding("charset=UTF-8");
-		post.setEntity(entity);
 
 		try {
+			StringEntity entity = new StringEntity(query, Charset.defaultCharset());
+			
+			post.addHeader("Accept-Encoding", "gzip,deflate");
+			post.addHeader(BasicScheme.authenticate(new UsernamePasswordCredentials(USER, PASSWORD), Charset.defaultCharset().name(), false));
+	
+			entity.setContentType("application/json");
+			post.setEntity(entity);
+
 			HttpResponse response = client.execute(post);
 
 			InputStream s1 = response.getEntity().getContent();
-			InputStreamReader isr = new InputStreamReader(s1);
+			InputStreamReader isr = new InputStreamReader(s1, Charset.defaultCharset());
 
 			JsonElement element = DaoJsonUtil.toJsonElement(isr);
 

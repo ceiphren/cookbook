@@ -1,15 +1,15 @@
 Ext.define('de.cookbook.model.DayEntry', {
 	extend : 'Ext.data.Model',
 
-	idProperty : 'clientId',
+	idProperty : '@rid',
 
 	fields : [ {
-		name : 'clientId',
+		name : '@rid',
 		type : 'string',
 		allowNull : true
 	}, {
 		name : 'date',
-		type : 'date',
+		type : 'string',
 		allowNull : true
 	}, {
 		name : 'text',
@@ -25,7 +25,7 @@ Ext.define('de.cookbook.model.DayEntry', {
 		type : 'ajax',
 
 		api : {
-			create : 'recipe?action=save&object=dayEntry',
+			create : 'recipe?action=save&object=dayentry',
 			update : 'recipe?action=save&object=dayEntry'
 		}
 	},

@@ -5,6 +5,9 @@ import java.util.Date;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * A day entry can have a association to a recipe OR a plain text, not both
+ */
 public class DayEntry {
 
 	/**

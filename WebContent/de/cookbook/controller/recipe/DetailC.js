@@ -9,7 +9,7 @@ Ext.define('de.cookbook.controller.recipe.DetailC', {
 
 		var recipeId = record.get('@rid');
 
-		if (recipeId) {
+		if (recipeId && recipeId.startsWith('#')) {
 			ingredientsGrid.getStore().load({
 				params : {
 					recipeId : recipeId

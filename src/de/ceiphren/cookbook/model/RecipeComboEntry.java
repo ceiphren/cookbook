@@ -4,16 +4,16 @@ package de.ceiphren.cookbook.model;
  * Combo-Entry for the Recipe-Selection from a combobox
  */
 public class RecipeComboEntry {
-	private Long id;
+	private String recordId;
 
 	private String name;
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setRecordId(String recordId) {
+		this.recordId = recordId;
 	}
 
-	public Long getId() {
-		return id;
+	public String getRecordId() {
+		return recordId;
 	}
 
 	public void setName(String name) {

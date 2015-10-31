@@ -6,51 +6,54 @@ Ext.define('de.cookbook.controller.calendar.GridC', {
 	alias : 'controller.calendar_gridc',
 
 	init : function() {
-
-		var d = this.getDateField();
 		
 		this.getView().renderItems();
 	},
-
-	addEntry : function(button, e, eOpts) {
-
-		var x = button.getX();
-		var y = button.getY() + button.getHeight();
-
-		this.createAndShowPopup(x, y);
-
+	
+	createAndShowPopupForPrevious : function(view, rowIdx, colIdx, item, e, record, row) {
+		var date = record.get('previousMonthDate');
+		this.createAndShowPopup(date);
+	},
+	
+	createAndShowPopupForCurrent : function(view, rowIdx, colIdx, item, e, record, row) {
+		var date = record.get('currentMonthDate');
+		this.createAndShowPopup(date);
+	},
+	
+	createAndShowPopupForNext : function(view, rowIdx, colIdx, item, e, record, row) {
+		var date = record.get('nextMonthDate');
+		this.createAndShowPopup(date);
 	},
 
-	createAndShowPopup : function(x, y) {
+	createAndShowPopup : function(date) {
 
 		var window = Ext.create('de.cookbook.view.calendar.EntryPopup');
+		window.down('#date').setValue(date);
 
+		window.on('close', this.getView().renderItems , this.getView() );
 		window.show();
+	},
 
-		window.setPagePosition(x, y);
-	},
-	
-	selectPreviousMonth : function(){
-		
+	selectPreviousMonth : function() {
+
 		var date = this.getDateField().getValue();
-		date.setMonth(date.getMonth() - 1);
-		
+		date = Ext.Date.add(date, Ext.Date.MONTH, -1)
+
 		this.getDateField().setValue(date);
-		
-		this.getView().renderItems();
-	},
-	
-	selectNextMonth : function(){
-		var date = this.getDateField().getValue();
-		date.setMonth(date.getMonth() + 1);
-		
-		this.getDateField().setValue(date);
-		
+
 		this.getView().renderItems();
 	},
 
-	
-	getDateField : function(){
+	selectNextMonth : function() {
+		var date = this.getDateField().getValue();
+		date = Ext.Date.add(date, Ext.Date.MONTH, 1)
+
+		this.getDateField().setValue(date);
+
+		this.getView().renderItems();
+	},
+
+	getDateField : function() {
 		return this.getView().down('#date');
 	}
 });

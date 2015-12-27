@@ -11,7 +11,7 @@ Ext.define('de.cookbook.model.CalendarEntry', {
 		allowNull : true
 	}, {
 		name : 'previousMonth',
-		type : 'string',
+		
 		allowNull : true
 	}, {
 		name : 'previousMonthDate',
@@ -19,7 +19,7 @@ Ext.define('de.cookbook.model.CalendarEntry', {
 		allowNull : true
 	}, {
 		name : 'currentMonth',
-		type : 'string',
+		
 		allowNull : true
 	}, {
 		name : 'currentMonthDate',
@@ -27,7 +27,7 @@ Ext.define('de.cookbook.model.CalendarEntry', {
 		allowNull : true
 	}, {
 		name : 'nextMonth',
-		type : 'string',
+		
 		allowNull : true
 	}, {
 		name : 'nextMonthDate',

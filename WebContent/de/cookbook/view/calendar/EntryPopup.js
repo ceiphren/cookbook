@@ -2,7 +2,7 @@ Ext.define('de.cookbook.view.calendar.EntryPopup', {
 
 	extend : 'Ext.window.Window',
 
-	requires : [ 'de.cookbook.controller.calendar.PopupC' ],
+	requires : [ 'de.cookbook.view.calendar.PopupC' ],
 
 	closeAction : 'destroy',
 

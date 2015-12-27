@@ -1,4 +1,4 @@
-Ext.define('de.cookbook.controller.recipe.GridC', {
+Ext.define('de.cookbook.view.recipe.GridC', {
 	extend : 'Ext.app.ViewController',
 
 	alias : 'controller.recipe_gridc',

@@ -1,6 +1,6 @@
 Ext.define('de.cookbook.view.recipe.DetailV', {
 
-	requires : [ 'de.cookbook.controller.recipe.DetailC',
+	requires : [ 'de.cookbook.view.recipe.DetailC',
 			'de.cookbook.store.IngredientS' ],
 
 	extend : 'Ext.form.Panel',
@@ -21,7 +21,8 @@ Ext.define('de.cookbook.view.recipe.DetailV', {
 	items : [ {
 		xtype : 'textfield',
 		fieldLabel : 'name',
-		name : 'name'
+		name : 'name',
+		allowBlank : false
 	}, {
 		xtype : 'container',
 		layout : 'hbox',

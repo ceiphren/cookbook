@@ -22,6 +22,16 @@ public class RecipeController {
 
 	@Needed
 	public DBService dbService;
+	
+	public String load(JsonObject object) {
+
+		JsonObject json = object.get("parameter").getAsJsonObject();
+		JsonElement idEl = json.get("id");
+
+		Recipe recipe = recipeDao.getByRId(idEl.getAsString());
+
+		return WebJsonUtil.toJson(recipe);
+	}
 
 	public String save(JsonObject object) {
 
@@ -36,6 +46,7 @@ public class RecipeController {
 
 	public void delete(JsonObject object) {
 
+		JsonElement json = object.get("data");
 	}
 
 	public String getList(JsonObject object) {

@@ -2,7 +2,7 @@ Ext.define('de.cookbook.view.recipe.GridV', {
 
 	extend : 'Ext.grid.Panel',
 	
-	requires : [ 'de.cookbook.controller.recipe.GridC',
+	requires : [ 'de.cookbook.view.recipe.GridC',
 	             'de.cookbook.store.RecipeS'],
 
 	xtype : 'de_cookbook_view_recipe_gridv',

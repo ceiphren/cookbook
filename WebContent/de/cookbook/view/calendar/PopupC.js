@@ -1,4 +1,4 @@
-Ext.define('de.cookbook.controller.calendar.PopupC', {
+Ext.define('de.cookbook.view.calendar.PopupC', {
 	extend : 'Ext.app.ViewController',
 
 	alias : 'controller.calendar_popupc',

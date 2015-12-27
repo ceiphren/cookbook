@@ -25,7 +25,7 @@ public class RecipeDaoTest extends AbstractTest {
 		Assert.assertEquals(unsavedRecipe.getDescription(), savedRecipe.getDescription());
 
 		// read
-		Recipe readedRecipe = recipeDao.get("burger");
+		Recipe readedRecipe = recipeDao.getByName("burger");
 		Assert.assertEquals(savedRecipe.getRecordId(), readedRecipe.getRecordId());
 		Assert.assertEquals(savedRecipe.getName(), readedRecipe.getName());
 		Assert.assertEquals(savedRecipe.getDescription(), readedRecipe.getDescription());

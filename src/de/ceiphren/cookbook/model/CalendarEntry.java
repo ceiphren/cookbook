@@ -1,6 +1,8 @@
 package de.ceiphren.cookbook.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.Expose;
 
@@ -12,19 +14,19 @@ public class CalendarEntry {
 	private int date;
 
 	@Expose(serialize = true, deserialize = true)
-	private String previousMonth = "";
+	private List<DayEntry> previousMonth = new ArrayList<>();
 
 	@Expose(serialize = true, deserialize = true)
 	private Date previousMonthDate;
 
 	@Expose(serialize = true, deserialize = true)
-	private String currentMonth = "";
+	private List<DayEntry> currentMonth = new ArrayList<>();
 
 	@Expose(serialize = true, deserialize = true)
 	private Date currentMonthDate;
 
 	@Expose(serialize = true, deserialize = true)
-	private String nextMonth = "";
+	private List<DayEntry> nextMonth = new ArrayList<>();
 
 	@Expose(serialize = true, deserialize = true)
 	private Date nextMonthDate;
@@ -61,28 +63,39 @@ public class CalendarEntry {
 		this.date = date;
 	}
 
-	public String getPreviousMonth() {
-		return previousMonth;
-	}
-
-	public void setPreviousMonth(String previousMonth) {
-		this.previousMonth = previousMonth;
-	}
-
-	public String getCurrentMonth() {
-		return currentMonth;
-	}
-
-	public void setCurrentMonth(String currentMonth) {
+	public void setCurrentMonth(List<DayEntry> currentMonth) {
 		this.currentMonth = currentMonth;
 	}
 
-	public String getNextMonth() {
-		return nextMonth;
+	public List<DayEntry> getCurrentMonth() {
+		return currentMonth;
 	}
 
-	public void setNextMonth(String nextMonth) {
+	public void setNextMonth(List<DayEntry> nextMonth) {
 		this.nextMonth = nextMonth;
 	}
 
+	public List<DayEntry> getNextMonth() {
+		return nextMonth;
+	}
+
+	public void setPreviousMonth(List<DayEntry> previousMonth) {
+		this.previousMonth = previousMonth;
+	}
+
+	public List<DayEntry> getPreviousMonth() {
+		return previousMonth;
+	}
+	
+	public void addCurrentMonthEntry(DayEntry entry){
+		this.currentMonth.add(entry);
+	}
+
+	public void addNextMonthEntry(DayEntry entry){
+		this.nextMonth.add(entry);
+	}
+	
+	public void addPreviousMonthEntry(DayEntry entry){
+		this.previousMonth.add(entry);
+	}
 }

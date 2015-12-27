@@ -41,7 +41,8 @@ Ext.define('de.cookbook.model.Recipe', {
 
 		api : {
 			create : 'recipe?action=save&object=recipe',
-			update : 'recipe?action=save&object=recipe'
+			update : 'recipe?action=save&object=recipe',
+			read : 'recipe?action=load&object=recipe'
 		}
 	},
 	

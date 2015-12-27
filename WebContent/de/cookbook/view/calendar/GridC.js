@@ -1,4 +1,4 @@
-Ext.define('de.cookbook.controller.calendar.GridC', {
+Ext.define('de.cookbook.view.calendar.GridC', {
 	extend : 'Ext.app.ViewController',
 
 	requires : [ 'de.cookbook.view.calendar.EntryPopup' ],
@@ -24,13 +24,32 @@ Ext.define('de.cookbook.controller.calendar.GridC', {
 		var date = record.get('nextMonthDate');
 		this.createAndShowPopup(date);
 	},
+	
+	loadRecipe : function(recipeId){
+		
+		de.cookbook.model.Recipe.load(recipeId, { 
+			callback: this.showRecipe,
+			scope : this
+		});
+		
+		return false;
+	},
+
+	showRecipe : function(recipe) {
+
+		var window = Ext.create('de.cookbook.view.recipe.WindowV');
+		window.show();
+
+		window.down('#detailv').on("saveSuccess", this.getView().renderItems, this.getView());
+		window.down('#detailv').getController().setUp(recipe);
+	},
 
 	createAndShowPopup : function(date) {
 
 		var window = Ext.create('de.cookbook.view.calendar.EntryPopup');
 		window.down('#date').setValue(date);
 
-		window.on('close', this.getView().renderItems , this.getView() );
+		window.on('close', this.getView().renderItems, this.getView());
 		window.show();
 	},
 

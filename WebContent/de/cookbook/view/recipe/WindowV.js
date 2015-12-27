@@ -3,7 +3,7 @@ Ext.define('de.cookbook.view.recipe.WindowV', {
 	extend : 'Ext.window.Window',
 
 	requires : [ 'de.cookbook.view.recipe.DetailV',
-			'de.cookbook.controller.recipe.WindowC' ],
+			'de.cookbook.view.recipe.WindowC' ],
 
 	controller : 'recipe_windowc',
 

@@ -27,8 +27,19 @@ public class RecipeDao {
 		}
 		return result;
 	}
+	
+	public Recipe getByRId(String recordId){
+		String query = "select from " + recordId;
+		JsonArray resultList = dbService.executeQuery(query);
 
-	public Recipe get(String name) {
+		if (resultList.size() > 0) {
+			return DaoJsonUtil.fromJson(resultList.get(0), Recipe.class);
+		} else {
+			return null;
+		}		
+	}
+
+	public Recipe getByName(String name) {
 
 		String query = "select from recipe where name = '" + name + "';";
 		JsonArray resultList = dbService.executeQuery(query);

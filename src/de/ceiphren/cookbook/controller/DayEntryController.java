@@ -102,14 +102,11 @@ public class DayEntryController {
 				if (dEntry.getDate().getDate() - 1 == date) {
 
 					if (monthIndicet[0] == dEntry.getDate().getMonth()) {
-
-						cEntry.setPreviousMonth(createDayEntryString(cEntry.getPreviousMonth(), dEntry));
+						cEntry.addPreviousMonthEntry(dEntry);
 					} else if (monthIndicet[1] == dEntry.getDate().getMonth()) {
-
-						cEntry.setCurrentMonth(createDayEntryString(cEntry.getCurrentMonth(), dEntry));
+						cEntry.addCurrentMonthEntry(dEntry);
 					} else if (monthIndicet[2] == dEntry.getDate().getMonth()) {
-
-						cEntry.setNextMonth(createDayEntryString(cEntry.getCurrentMonth(), dEntry));
+						cEntry.addNextMonthEntry(dEntry);
 					}
 				}
 			}
@@ -117,23 +114,6 @@ public class DayEntryController {
 			list.add(cEntry);
 		}
 
-		String result = DaoJsonUtil.toJson(list);
-
-		return result;
-	}
-
-	
-	private String createDayEntryString(String current, DayEntryWithRecipeName entry){
-		
-		if(entry.getText() != null){
-			
-			current += entry.getText() + "&#10;";	
-		}
-		
-		if(entry.getRecipeId() != null){
-			current += entry.getRecipeName() + "&#10;";
-		}
-		
-		return current;
+		return WebJsonUtil.toJson(list);
 	}
 }

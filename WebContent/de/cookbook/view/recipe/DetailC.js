@@ -1,4 +1,4 @@
-Ext.define('de.cookbook.controller.recipe.DetailC', {
+Ext.define('de.cookbook.view.recipe.DetailC', {
 	extend : 'Ext.app.ViewController',
 	alias : 'controller.recipe_detailc',
 
@@ -63,14 +63,17 @@ Ext.define('de.cookbook.controller.recipe.DetailC', {
 
 	saveRecipe : function() {
 
-		this.getView().updateRecord();
+		if(this.getView().isValid())
+		{
+			this.getView().updateRecord();
 
-		this.getView().getRecord().save({
-			callback : this.afterSave,
-			scope : this
-		});
-
-		this.getView().setLoading(true);
+			this.getView().getRecord().save({
+				callback : this.afterSave,
+				scope : this
+			});
+	
+			this.getView().setLoading(true);
+		}
 	},
 
 	afterSave : function(record, opts, arg2) {
